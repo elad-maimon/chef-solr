@@ -43,7 +43,7 @@ directory node.solr.data do
   mode      "750"
 end
 
-directory node.solr.config do
+remote_directory node.solr.config do
   source "solr_conf"
   owner node.jetty.user
   group node.jetty.group
