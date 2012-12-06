@@ -43,6 +43,35 @@ directory node.solr.data do
   mode      "750"
 end
 
+directory node.solr.config do
+  source "solr_conf"
+  owner node.jetty.user
+  group node.jetty.group
+  files_owner node.jetty.user
+  files_group node.jetty.group
+  files_mode "644"
+  purge true
+  notifies :restart, resources(:service => "jetty")
+end
+
+remote_file "#{node.solr.lib}/postgresql-9.2-1002.jdbc4.jar" do
+  action :create_if_missing
+  source "http://jdbc.postgresql.org/download/postgresql-9.2-1002.jdbc4.jar"
+  backup 0
+  mode "640"
+  owner node.jetty.user
+  group node.jetty.group
+end
+
+remote_file "#{node.solr.lib}/solr-dataimporthandler-#{node.solr.version}.jar" do
+  action :create_if_missing
+  source "http://repo1.maven.org/maven2/org/apache/solr/solr-dataimporthandler/#{node.solr.version}/solr-dataimporthandler-#{node.solr.version}.jar"
+  backup 0
+  mode "640"
+  owner node.jetty.user
+  group node.jetty.group
+end
+
 template "#{node.jetty.home}/contexts/solr.xml" do
   owner  node.jetty.user
   source "solr.context.erb"
