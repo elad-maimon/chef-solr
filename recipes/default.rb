@@ -54,6 +54,13 @@ remote_directory node.solr.config do
   notifies :restart, resources(:service => "jetty")
 end
 
+directory node.solr.lib do
+  owner     node.jetty.user
+  group     node.jetty.group
+  recursive true
+  mode      "750"
+end
+
 remote_file "#{node.solr.lib}/postgresql-9.2-1002.jdbc4.jar" do
   action :create_if_missing
   source "http://jdbc.postgresql.org/download/postgresql-9.2-1002.jdbc4.jar"
