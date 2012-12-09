@@ -89,7 +89,7 @@ bash "Add solr to jetty's config" do
   user "root"
   cwd "/etc/default"
   code <<-EOT
-    echo 'JAVA_OPTIONS="-Dsolr.solr.home=#{node.solr.home}"' >> jetty
+    echo 'JAVA_OPTIONS="-Dsolr.solr.home=#{node.solr.home}" -Durl=#{node.solr.source_db.url} -Duser=#{node.solr.source_db.username} -Dpassword=#{node.solr.source_db.password}' >> jetty
   EOT
   notifies :restart, resources(:service => "jetty")
 end
