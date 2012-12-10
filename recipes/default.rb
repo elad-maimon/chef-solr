@@ -20,13 +20,13 @@
 include_recipe "jetty"
 
 remote_file node.solr.download do
+  action :create_if_missing
   source   node.solr.link
   checksum node.solr.checksum
   mode     0644
 end
 
 bash 'unpack solr' do
-  action :create_if_missing
   code   "tar xzf #{node.solr.download} -C #{node.solr.directory}"
   not_if "test -d #{node.solr.extracted}"
 end
