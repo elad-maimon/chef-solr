@@ -47,7 +47,8 @@ end
 directory node.solr.config do
   owner node.jetty.user
   group node.jetty.group
-  mode "644"
+  mode "750"
+  notifies :restart, resources(:service => "jetty")
 end
 
 directory node.solr.lib do
