@@ -44,15 +44,10 @@ directory node.solr.data do
   mode      "750"
 end
 
-remote_directory node.solr.config do
-  source "solr_conf"
+directory node.solr.config do
   owner node.jetty.user
   group node.jetty.group
-  files_owner node.jetty.user
-  files_group node.jetty.group
-  files_mode "644"
-  purge true
-  notifies :restart, resources(:service => "jetty")
+  mode "644"
 end
 
 directory node.solr.lib do
