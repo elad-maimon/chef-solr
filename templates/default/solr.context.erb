@@ -3,6 +3,7 @@
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
+  <Set name="defaultsDescriptor"><SystemProperty name="jetty.home" default="."/>/etc/webdefault.xml</Set>
   <Set name="contextPath">/<%= node.solr.context_path %></Set>
   <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/solr.war</Set>
 
