@@ -11,9 +11,10 @@ default[:solr][:extracted] = "#{solr.directory}/solr-#{solr.version}"
 default[:solr][:war]       = "#{solr.extracted}/dist/solr-#{solr.version}.war"
 
 default[:solr][:context_path]  = 'solr'
-default[:solr][:home]          = "#{node.jetty.home}/webapps/#{node.solr.context_path}"
-set[:solr][:config]            = "#{node.solr.home}/conf"
-set[:solr][:lib]               = "#{node.solr.home}/lib"
-default[:solr][:data]          = "#{node.solr.home}/data"
+default[:solr][:home]          = "#{node.jetty.home}/#{node.solr.context_path}"
+default[:solr][:core]          = "#{node.solr.home}/collection1"
+set[:solr][:config]            = "#{node.solr.core}/conf"
+set[:solr][:lib]               = "#{node.solr.core}/lib"
+default[:solr][:data]          = "#{node.solr.core}/data"
 default[:solr][:custom_config] = nil
 default[:solr][:custom_lib]    = nil
