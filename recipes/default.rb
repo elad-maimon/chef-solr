@@ -43,7 +43,7 @@ bash 'copy logging jars into jetty' do
 end
 
 bash 'copy logging configuration into jetty' do
-  code "cp #{node.solr.extracted}/example/resources/log4j.properties #{node.jetty.home}/resources"
+  code "mkdir #{node.jetty.home}/resources; cp -p #{node.solr.extracted}/example/resources/log4j.properties #{node.jetty.home}/resources"
   notifies :restart, resources(:service => "jetty")
 end
 
