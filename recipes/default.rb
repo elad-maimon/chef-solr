@@ -34,6 +34,7 @@ end
 bash 'install solr into jetty' do
   code   "cp #{node.solr.war} #{node.jetty.home}/webapps/solr.war"
   not_if "test `sha256sum #{node.jetty.home}/webapps/solr.war | cut -d ' ' -f 1` = `sha256sum #{node.solr.war} | cut -d ' ' -f 1`"
+  code "cp #{node.solr.extracted}/examples/lib/ext/* #{node.jetty.home}/lib/ext"
   notifies :restart, resources(:service => "jetty")
 end
 
