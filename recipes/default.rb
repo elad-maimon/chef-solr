@@ -47,6 +47,29 @@ bash 'copy logging configuration into jetty' do
   notifies :restart, resources(:service => "jetty")
 end
 
+directory node.solr.lib do
+  owner     node.jetty.user
+  group     node.jetty.group
+  recursive true
+  mode      "750"
+  notifies :restart, resources(:service => "jetty")
+end
+
+directory node.solr.config do
+  owner node.jetty.user
+  group node.jetty.group
+  recursive true
+  mode "750"
+  notifies :restart, resources(:service => "jetty")
+end
+
+directory node.solr.data do
+  owner     node.jetty.user
+  group     node.jetty.group
+  recursive true
+  mode      "750"
+end
+
 bash 'copy dist folder into solr home' do
   code "cp -r #{node.solr.extracted}/dist #{node.solr.lib}"
   notifies :restart, resources(:service => "jetty")
@@ -57,29 +80,7 @@ bash 'copy contrib folder into solr home' do
   notifies :restart, resources(:service => "jetty")
 end
 
-
-directory node.solr.data do
-  owner     node.jetty.user
-  group     node.jetty.group
-  recursive true
-  mode      "750"
-end
-
 directory "#{node.jetty.home}/webapps" do
-  owner     node.jetty.user
-  group     node.jetty.group
-  recursive true
-  mode      "750"
-end
-
-directory node.solr.config do
-  owner node.jetty.user
-  group node.jetty.group
-  mode "750"
-  notifies :restart, resources(:service => "jetty")
-end
-
-directory node.solr.lib do
   owner     node.jetty.user
   group     node.jetty.group
   recursive true
