@@ -48,12 +48,12 @@ bash 'copy logging configuration into jetty' do
 end
 
 bash 'copy dist folder into solr home' do
-  code "cp -r #{node.solr.extracted}/example/dist #{node.solr.lib}"
+  code "cp -r #{node.solr.extracted}/dist #{node.solr.lib}"
   notifies :restart, resources(:service => "jetty")
 end
 
 bash 'copy contrib folder into solr home' do
-  code "cp -r #{node.solr.extracted}/example/contrib #{node.solr.lib}"
+  code "cp -r #{node.solr.extracted}/contrib #{node.solr.lib}"
   notifies :restart, resources(:service => "jetty")
 end
 
