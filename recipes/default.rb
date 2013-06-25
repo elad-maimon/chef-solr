@@ -38,7 +38,7 @@ bash 'install solr war into jetty' do
 end
 
 bash 'copy logging jars into jetty' do
-  code "cp #{node.solr.extracted}/example/lib/ext/* #{node.jetty.home}/lib/ext"
+  code "cp #{node.solr.extracted}/examples/lib/ext/* #{node.jetty.home}/lib/ext"
   notifies :restart, resources(:service => "jetty")
 end
 
