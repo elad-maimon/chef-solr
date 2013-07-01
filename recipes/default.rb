@@ -101,3 +101,9 @@ template "#{node.jetty.home}/contexts/solr.xml" do
   source "solr.context.erb"
   notifies :restart, resources(:service => "jetty")
 end
+
+template "#{node.jetty.home}/resources/log4j.proporties" do
+  owner  node.jetty.user
+  source "log4j.proporties.erb"
+  notifies :restart, resources(:service => "jetty")
+end
