@@ -19,9 +19,6 @@ default[:solr][:data]          = "#{node.solr.core}/data"
 default[:solr][:custom_config] = nil
 default[:solr][:custom_lib]    = nil
 
-default[:solr][:log4j][:    = nil
-
-
 default[:solr][:log4j][:email]         = "org.apache.log4j.net.SMTPAppender"
 default[:solr][:log4j][:smtp_host]     = "smtp.gmail.com"
 default[:solr][:log4j][:smtp_protocol] = "smtps"
