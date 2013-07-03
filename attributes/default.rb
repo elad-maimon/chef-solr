@@ -18,3 +18,18 @@ set[:solr][:lib]               = "#{node.solr.core}/lib"
 default[:solr][:data]          = "#{node.solr.core}/data"
 default[:solr][:custom_config] = nil
 default[:solr][:custom_lib]    = nil
+
+default[:solr][:log4j][:    = nil
+
+
+default[:solr][:log4j][:email]         = "org.apache.log4j.net.SMTPAppender"
+default[:solr][:log4j][:smtp_host]     = "smtp.gmail.com"
+default[:solr][:log4j][:smtp_protocol] = "smtps"
+default[:solr][:log4j][:smtp_username] = "tlv@klarna.com"
+default[:solr][:log4j][:smtp_password] = "ej#c3dcwvg"
+default[:solr][:log4j][:from]          = "tlv@klarna.com"
+default[:solr][:log4j][:to]            = "krembo.e@klarna.com"
+default[:solr][:log4j][:subject]       = "'solr error'"
+default[:solr][:log4j][:buffer_size]   = "1"
+default[:solr][:log4j][:layout]        = "org.apache.log4j.patternlayout"
+default[:solr][:log4j][:layout][:conversionpattern] = "%m"

@@ -11,14 +11,14 @@ log4j.appender.file.File=<%= node.jetty.home %>/logs/solr.log
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.ConversionPattern=%-5p - %d{yyyy-MM-dd HH:mm:ss.SSS}; %C; %m\n
 
-log4j.appender.email=org.apache.log4j.net.SMTPAppender
-log4j.appender.email.SMTPHost=smtp.gmail.com
-log4j.appender.email.SMTPProtocol=smtps
-log4j.appender.email.SMTPUsername=tlv@klarna.com
-log4j.appender.email.SMTPPassword=Ej#c3dcwVg
-log4j.appender.email.From=tlv@klarna.com
-log4j.appender.email.To=krembo.e@klarna.com
-log4j.appender.email.Subject='Solr Error'
-log4j.appender.email.BufferSize=1
-log4j.appender.email.layout=org.apache.log4j.PatternLayout
-log4j.appender.email.layout.ConversionPattern=%m
+log4j.appender.email                          = <%= node.solr.log4j.email %>
+log4j.appender.email.SMTPHost                 = <%= node.solr.log4j.smtp_host %>
+log4j.appender.email.SMTPProtocol             = <%= node.solr.log4j.smtp_protocol %>
+log4j.appender.email.SMTPUsername             = <%= node.solr.log4j.smtp_username %>
+log4j.appender.email.SMTPPassword             = <%= node.solr.log4j.smtp_password %>
+log4j.appender.email.From                     = <%= node.solr.log4j.from %>
+log4j.appender.email.To                       = <%= node.solr.log4j.to %>
+log4j.appender.email.Subject                  = <%= node.solr.log4j.subject %>
+log4j.appender.email.BufferSize               = <%= node.solr.log4j.buffer_size %>
+log4j.appender.email.layout                   = <%= node.solr.log4j.layout %>
+log4j.appender.email.layout.ConversionPattern = <%= node.solr.log4j.layout_conversion_pattern %>
