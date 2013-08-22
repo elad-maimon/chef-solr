@@ -32,16 +32,19 @@ bash 'unpack solr' do
 end
 
 bash 'install solr war into jetty' do
-  run_code_and_restart_jetty   "cp #{node.solr.war} #{node.jetty.home}/webapps/solr.war"
+  code   "cp #{node.solr.war} #{node.jetty.home}/webapps/solr.war"
   not_if "test `sha256sum #{node.jetty.home}/webapps/solr.war | cut -d ' ' -f 1` = `sha256sum #{node.solr.war} | cut -d ' ' -f 1`"
+  notifies :restart, resources(:service => "jetty")
 end
 
 bash 'copy logging jars into jetty' do
-  run_code_and_restart_jetty "cp #{node.solr.extracted}/example/lib/ext/* #{node.jetty.home}/lib/ext"
+  code "cp #{node.solr.extracted}/example/lib/ext/* #{node.jetty.home}/lib/ext"
+  notifies :restart, resources(:service => "jetty")
 end
 
 bash 'copy logging configuration into jetty' do
-  run_code_and_restart_jetty "mkdir #{node.jetty.home}/resources; cp #{node.solr.extracted}/example/resources/log4j.properties #{node.jetty.home}/resources"
+  code "mkdir #{node.jetty.home}/resources; cp #{node.solr.extracted}/example/resources/log4j.properties #{node.jetty.home}/resources"
+  notifies :restart, resources(:service => "jetty")
 end
 
 directory node.solr.lib do
@@ -68,11 +71,13 @@ directory node.solr.data do
 end
 
 bash 'copy dist folder into solr home' do
-  run_code_and_restart_jetty "cp -r #{node.solr.extracted}/dist #{node.solr.lib}"
+  code "cp -r #{node.solr.extracted}/dist #{node.solr.lib}"
+  notifies :restart, resources(:service => "jetty")
 end
 
 bash 'copy contrib folder into solr home' do
-  run_code_and_restart_jetty "cp -r #{node.solr.extracted}/contrib #{node.solr.lib}"
+  code "cp -r #{node.solr.extracted}/contrib #{node.solr.lib}"
+  notifies :restart, resources(:service => "jetty")
 end
 
 directory "#{node.jetty.home}/webapps" do
@@ -100,10 +105,5 @@ end
 template "#{node.jetty.home}/resources/log4j.properties" do
   owner  node.jetty.user
   source "log4j.properties.erb"
-  notifies :restart, resources(:service => "jetty")
-end
-
-def run_code_and_restart_jetty(code)
-  code code_to_run
   notifies :restart, resources(:service => "jetty")
 end
