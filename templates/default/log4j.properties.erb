@@ -1,0 +1,26 @@
+
+log4j.rootLogger=ERROR, email, file
+
+#- size rotation with log cleanup.
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.MaxFileSize=50MB
+log4j.appender.file.MaxBackupIndex=9
+
+#- File to log to and log format
+log4j.appender.file.File=<%= node.jetty.home %>/logs/solr.log
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%-5p - %d{yyyy-MM-dd HH:mm:ss.SSS}; %C; %m\n
+
+log4j.appender.email                          = <%= node.solr.log4j.email %>
+log4j.appender.email.SMTPHost                 = <%= node.solr.log4j.smtp_host %>
+log4j.appender.email.SMTPProtocol             = <%= node.solr.log4j.smtp_protocol %>
+log4j.appender.email.SMTPUsername             = <%= node.solr.log4j.smtp_username %>
+log4j.appender.email.SMTPPassword             = <%= node.solr.log4j.smtp_password %>
+log4j.appender.email.From                     = <%= node.solr.log4j.from %>
+log4j.appender.email.To                       = <%= node.solr.log4j.to %>
+log4j.appender.email.Subject                  = <%= node.solr.log4j.subject %>
+log4j.appender.email.BufferSize               = <%= node.solr.log4j.buffer_size %>
+log4j.appender.email.layout                   = <%= node.solr.log4j.layout %>
+log4j.appender.email.layout.ConversionPattern = <%= node.solr.log4j.layout_conversion_pattern %>
+
+log4j.logger.org.apache.solr=Debug
