@@ -1,6 +1,6 @@
 include_attribute "jetty"
 
-expand!
+expand! unless Chef::Config[:solo]
 
 default[:solr][:version]   = "4.4.0"
 default[:solr][:link]      = "https://archive.apache.org/dist/lucene/solr/#{solr.version}/solr-#{solr.version}.tgz"
